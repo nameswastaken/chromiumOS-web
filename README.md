@@ -2,7 +2,10 @@
 A recreation of chromiumOS in HTML, CSS, and JS.
 
 # Why?
-Why not?!
+Why not?!  
+Looking for usecases?
+- if you want to try chromeOS
+- just curious
 
 # What's included?
 A chromiumOS based interface and look.
