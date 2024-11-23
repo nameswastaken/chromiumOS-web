@@ -182,6 +182,7 @@ user-select: none;
 <iframe id="quicksettingsiframe" class="iframe-container"></iframe>
 <iframe id="calendarmenuiframe" class="calendar-container"></iframe>
 <iframe id="chromiumiframe" class="chromium-iframe-container"></iframe>
+<iframe id="toteiframe" class="tote-iframe-container"></iframe>
 
 <script>
 document.getElementById('searchButton').addEventListener('click', function() {
@@ -225,20 +226,19 @@ document.getElementById('calendarbutton').addEventListener('click', function() {
 });
 
 document.getElementById('totebutton').addEventListener('click', function() {
-    var iframe = document.getElementById('calendarmenuiframe');
-    if (this.classList.contains('calendarbuttonactivated')) {
+    var iframe = document.getElementById('toteiframe');
+    if (this.classList.contains('toteactivated')) {
         deselectAll();
     } else {
         deselectAll();
-        this.classList.add('calendarbuttonactivated');
-        var p = document.querySelector('.calendarbutton p');
+        this.classList.add('toteactivated');
         p.style.color = 'rgb(28, 24, 48)';
         iframe.style.display = 'block';
         iframe.src = 'web/calendarmenu.html';
     }
 });
 
-// Event listener for the Chromium icon
+
 document.getElementById('chromiumIcon').addEventListener('click', function() {
     var existingIframe = document.getElementById('chromiumiframe');
     if (existingIframe) {
