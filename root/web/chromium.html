@@ -187,7 +187,7 @@
 </head>
 <body>
     <div class="tabs">
-        <p>cool tab name (not functional yet)</p>
+        <p>Tab 1</p>
         <img src="../../usr/share/chromeos-assets/image/tab.svg">
     </div>
     <div class="tabhistory">
@@ -245,8 +245,13 @@
         function closeIframe() {
             window.parent.postMessage('closeIframe', '*');
         }
+        function refreshIframe() {
+            var iframe = document.getElementById("innercontent");
+            iframe.src = iframe.src;
+        }
 
         document.getElementById('exitButton').addEventListener('click', closeIframe);
+        document.getElementById('refresh').addEventListener('click', refreshIframe);
     </script>
 </body>
 </html>
