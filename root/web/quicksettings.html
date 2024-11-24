@@ -56,9 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+
 </script>
 
 <style>
+    body {
+        user-select: none;
+    }
         @font-face {
     font-family: 'Product Sans Regular';
     font-style: normal;
@@ -211,7 +216,7 @@ border: none;
 <p>Accessibility</p>
 <img src="../../usr/share/chromeos-assets/image/rightchev.svg">
 </div>
-<div class="screenshotbutton">
+<div id="screenshot" class="screenshotbutton">
     <img src="../../usr/share/chromeos-assets/image/screenshot.svg">
     <p>Screen</p>
     <p>capture</p>
