@@ -63,6 +63,7 @@
             width: 20px;
             height: auto;
             margin-left: 10px;
+            transition: 0.3s ease-in-out;
         }
 
         #linesplitter {
@@ -107,6 +108,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: 0.3s ease-in-out;
         }
 
         .pageinfoicon img {
@@ -183,6 +185,26 @@
             color: white;
             font-family: 'Arial';
         }
+        #refresh {
+            transition: 0.3s ease-in-out;
+        }
+        #refresh:hover {
+            background-color:#685c7f;
+            border-radius: 50%;
+            padding: 2px;
+        }
+        .pageinfoicon:hover {
+            background-color:#685c7f;
+        }
+        #menu:hover {
+            background-color:#685c7f;
+            border-radius: 50%;
+        }
+        #pageinfoiframe {
+            display: none;
+            border: none;
+            z-index: 98;
+        }
     </style>
 </head>
 <body>
@@ -212,7 +234,7 @@
             <img id="refresh" src="../../usr/share/chromeos-assets/chromium/refresh.svg">
         </div>
         <div class="urlbar">
-            <div class="pageinfoicon">
+            <div class="pageinfoicon" id="pageinfo">
                 <img src="../../usr/share/chromeos-assets/chromium/pageinfo.svg"> 
             </div>
             <input type="text" id="url" name="url" placeholder="Search or type a URL" onkeypress="loadURL(event)">
@@ -222,6 +244,7 @@
             <img src="../../usr/share/chromeos-assets/chromium/tabgroup.svg">
         </div>
     </div>
+    <iframe id="pageinfoiframe" src=""></iframe>
     <div class="content">
         <iframe id="innercontent" src="https://www.wikipedia.org"></iframe>
     </div>
@@ -249,9 +272,15 @@
             var iframe = document.getElementById("innercontent");
             iframe.src = iframe.src;
         }
+        function pageInfo() {
+            var iframe = document.getElementById("pageinfoiframe");
+            iframe.style.display = 'block';
+            iframe.src = 'internal/pageinfoalert.html';  
+        }
 
         document.getElementById('exitButton').addEventListener('click', closeIframe);
         document.getElementById('refresh').addEventListener('click', refreshIframe);
+        document.getElementById('pageinfo').addEventListener('click', pageInfo);
     </script>
 </body>
 </html>
