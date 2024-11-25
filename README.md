@@ -25,5 +25,5 @@ Should work fine with Windows/Mac, still prioritizing chromeOS.
 2. just fork it and make whatever changes you want. you may have to change some css settings
 3. no size worries! the source code is only arround 500kb~ or so, which should not be a huge deal.
 
-# resolution
-resolutions are no longer an issue
+# Two branches?
+Yes, there is the main branch, and the development branch. If you want a stable experience, __use the main branch__. If you want features as they get made, get the development branch.
