@@ -1,14 +1,124 @@
+<!DOCTYPE html>
 <html>
     <head>
         <style>
+            body {
+                overflow: hidden;
+            }
+            @font-face {
+                font-family: 'Roboto';
+                font-style: normal;
+                src: local('Roboto'), url('../../../usr/share/chromeos-assets/sys/fonts/roboto.ttf') format('truetype');
+            }
             .reg100 {
-                background-color: #1D1B20;
+                background-color: #1d1b20;
+                border-radius: 10px;
+                padding: 3px;
+            }
+            hr.solid {
+                border-top: 0.2px solid #574f64;
+                width: 90%;
+                margin: 10px auto;
+            }
+            h1 {
+                color: #ffffff;
+                font-size: 18px;
+                font-family: 'Roboto';
+                font-weight: 500;
+                margin: 0; 
+                padding: 22px 0 22px 22px; 
+            }
+            p {
+                color: #ffffff;
+                font-size: 16px;
+                font-family: 'Roboto';
+                font-weight: 400;
+                margin: 0;
+            }
+            .exit {
+                width: 18px;
+                height: auto;
+                margin-right: 20px;
+            }
+            .urlpart {
+                display: flex;
+                align-items: center; 
+                justify-content: space-between;
+            }
+            .cookiedata, .sitesettings {
+                display: flex;
+                align-items: center; 
+                padding: 10px 0;
+                margin: 0 18px;
+            }
+            .cookiedata p, .sitesettings p {
+                margin-left: 8px;
+            }
+            .cookiedata .chevron, .sitesettings .chevron {
+                margin-left: auto;
+            }
+            .sitesettings {
+                padding-bottom: 20px;
             }
         </style>
     </head>
     <body>
         <div class="reg100">
-        <h1>Hello</h1>
+            <div class="urlpart">
+                <h1 id="page-url">Loading...</h1>
+                <img class="exit" src="../../../usr/share/chromeos-assets/chromium/alt/exit.svg">
+            </div>
+            <hr class="solid">
+            <div class="cookiedata">
+                <img class="cookieicon" src="../../../usr/share/chromeos-assets/chromium/alt/cookie.svg">
+                <p>Cookies and site data</p>
+                <img class="chevron" src="../../../usr/share/chromeos-assets/chromium/alt/right.svg">
+            </div>
+            <div class="sitesettings">
+                <img class="cookieicon" src="../../../usr/share/chromeos-assets/chromium/alt/settings.svg">
+                <p>Site settings</p>
+                <img class="chevron" src="../../../usr/share/chromeos-assets/chromium/alt/open.svg">
+            </div>
         </div>
+        <script>
+            window.addEventListener('message', function(event) {
+                if (event.data.type === 'updateURL') {
+                    var url = event.data.url;
+                    var displayUrl = url;
+                    try {
+                        if (url.startsWith("http://") || url.startsWith("https://")) {
+                            displayUrl = new URL(url).hostname;
+                            if (displayUrl.startsWith("www.")) {
+                                displayUrl = displayUrl.substring(4);
+                            }
+                        } else {
+                            displayUrl = url.replace(/^(https?:\/\/)(www\.)?/i, '');
+                            var slashIndex = displayUrl.indexOf('/');
+                            if (slashIndex !== -1) displayUrl = displayUrl.substring(0, slashIndex);
+                            if (displayUrl.startsWith("www.")) {
+                                displayUrl = displayUrl.substring(4);
+                            }
+                        }
+                    } catch(e) {
+                        displayUrl = url.replace(/^(https?:\/\/)(www\.)?/i, '');
+                        var slashIndex = displayUrl.indexOf('/');
+                        if (slashIndex !== -1) displayUrl = displayUrl.substring(0, slashIndex);
+                        if (displayUrl.startsWith("www.")) {
+                            displayUrl = displayUrl.substring(4);
+                        }
+                    }
+                    if (displayUrl.length > 20) {
+                        displayUrl = displayUrl.substring(0, 20) + '...';
+                    }
+                    document.getElementById('page-url').textContent = displayUrl;
+                }
+            }, false);
+
+            document.querySelector('.exit').addEventListener('click', function() {
+                window.parent.postMessage({ type: 'closePageInfoAlert' }, '*');
+            });
+
+            window.parent.postMessage({ type: 'requestURL' }, '*');
+        </script>
     </body>
 </html>
